@@ -88,7 +88,7 @@ export default function TodoItem({
       </div>
 
       {!isEditing && (
-        <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-150">
+        <div className="flex gap-1 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-150">
           <button
             onClick={() => startEdit(t)}
             className="p-2 rounded-lg text-slate-400 hover:text-blue-400 hover:bg-blue-400/10 transition-all"
