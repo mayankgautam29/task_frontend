@@ -1,8 +1,25 @@
 "use client";
- 
+
 import { FaTrash, FaCheck } from "react-icons/fa";
 import { MdEdit } from "react-icons/md";
- 
+
+interface Todo {
+  id: string;
+  title: string;
+  isCompleted: boolean;
+}
+
+interface TodoItemProps {
+  t: Todo;
+  toggle: (id: string) => void;
+  deleteTodo: (id: string) => void;
+  startEdit: (t: Todo) => void;
+  editId: string | null;
+  editText: string;
+  setEditText: (value: string) => void;
+  saveEdit: React.FormEventHandler<HTMLFormElement>;
+}
+
 export default function TodoItem({
   t,
   toggle,
@@ -12,28 +29,30 @@ export default function TodoItem({
   editText,
   setEditText,
   saveEdit,
-}: any) {
+}: TodoItemProps) {
   const isEditing = editId === t.id;
- 
+
   return (
     <div
       className={`group flex items-center gap-3 px-4 py-3 rounded-xl border transition-all duration-200 shadow-sm
-        ${t.isCompleted
-          ? "bg-slate-900 border-slate-800 opacity-55"
-          : "bg-slate-900 border-slate-700 hover:border-slate-500 hover:shadow-slate-950/60 hover:shadow-md"
+        ${
+          t.isCompleted
+            ? "bg-slate-900 border-slate-800 opacity-55"
+            : "bg-slate-900 border-slate-700 hover:border-slate-500 hover:shadow-slate-950/60 hover:shadow-md"
         }`}
     >
       <button
         onClick={() => toggle(t.id)}
         className={`shrink-0 w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all duration-200
-          ${t.isCompleted
-            ? "bg-emerald-500 border-emerald-500 text-white"
-            : "border-slate-500 text-transparent hover:border-emerald-400 hover:text-emerald-400"
+          ${
+            t.isCompleted
+              ? "bg-emerald-500 border-emerald-500 text-white"
+              : "border-slate-500 text-transparent hover:border-emerald-400 hover:text-emerald-400"
           }`}
       >
         <FaCheck className="text-[10px]" />
       </button>
- 
+
       <div className="flex-1 min-w-0">
         {isEditing ? (
           <form onSubmit={saveEdit} className="flex gap-2">
@@ -53,7 +72,9 @@ export default function TodoItem({
         ) : (
           <span
             className={`block text-sm font-medium truncate transition-all
-              ${t.isCompleted ? "line-through text-slate-500" : "text-slate-100"}`}
+              ${
+                t.isCompleted ? "line-through text-slate-500" : "text-slate-100"
+              }`}
           >
             {t.title}
           </span>
@@ -67,6 +88,7 @@ export default function TodoItem({
           >
             <MdEdit className="text-base" />
           </button>
+
           <button
             onClick={() => deleteTodo(t.id)}
             className="p-2 rounded-lg text-slate-400 hover:text-red-400 hover:bg-red-400/10 transition-all"
