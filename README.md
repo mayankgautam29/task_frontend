@@ -62,7 +62,7 @@ I kept things simple. All the logic — adding, deleting, toggling, editing — 
 Clone the repo and install dependencies:
 
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/mayankgautam29/task_frontend
 cd todo-app
 npm install
 ```
