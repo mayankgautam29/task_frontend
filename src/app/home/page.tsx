@@ -77,8 +77,6 @@ export default function home() {
       <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold uppercase mb-5 text-center">
         Todo Task
       </h1>
-
-      {/* Add Todo */}
       <form
         onSubmit={addTodo}
         className="flex flex-col sm:flex-row gap-4 items-center w-full max-w-xl"
@@ -93,8 +91,6 @@ export default function home() {
           Add
         </button>
       </form>
-
-      {/* Todos */}
       <div className="flex flex-col gap-5 mt-10 w-full max-w-3xl items-center">
         {todo.map((t) => (
           <div
@@ -105,7 +101,6 @@ export default function home() {
               opacity: t.isCompleted ? 0.5 : 1,
             }}
           >
-            {/* Toggle */}
             <button
               onClick={() => toggle(t.id)}
               className={`px-4 py-2 rounded-lg text-white ${
@@ -114,8 +109,6 @@ export default function home() {
             >
               <FaCheck />
             </button>
-
-            {/* Title / Edit */}
             {editId === t.id ? (
               <form
                 onSubmit={saveedt}
@@ -136,7 +129,6 @@ export default function home() {
               </span>
             )}
 
-            {/* Actions */}
             <div className="flex gap-2">
               <button onClick={() => startEdit(t)} className="text-white">
                 <MdEdit />
