@@ -73,33 +73,39 @@ export default function home() {
     setEditId(null);
   };
   return (
-    <div className="w-screen py-20 flex flex-col items-center">
-      <h1 className="text-5xl font-extrabold uppercase mb-5 text-center">
+    <div className="w-full min-h-screen py-10 px-4 flex flex-col items-center">
+      <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold uppercase mb-5 text-center">
         Todo Task
       </h1>
 
-      <form onSubmit={addTodo} className="flex gap-4 items-center">
+      {/* Add Todo */}
+      <form
+        onSubmit={addTodo}
+        className="flex flex-col sm:flex-row gap-4 items-center w-full max-w-xl"
+      >
         <input
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Add Todo..."
-          className="p-4 rounded-lg bg-gray-700 text-white"
+          className="w-full p-3 sm:p-4 rounded-lg bg-gray-700 text-white"
         />
-        <button className="bg-blue-600 px-5 py-2 rounded-lg text-white">
+        <button className="w-full sm:w-auto bg-blue-600 px-5 py-2 rounded-lg text-white">
           Add
         </button>
       </form>
 
-      <div className="flex flex-col gap-5 mt-10 w-full items-center">
+      {/* Todos */}
+      <div className="flex flex-col gap-5 mt-10 w-full max-w-3xl items-center">
         {todo.map((t) => (
           <div
             key={t.id}
-            className="w-10/12 flex items-center justify-between bg-slate-900 py-4 px-20 rounded-2xl"
+            className="w-full flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-0 bg-slate-900 py-4 px-4 sm:px-6 md:px-10 rounded-2xl"
             style={{
               textDecoration: t.isCompleted ? "line-through" : "none",
               opacity: t.isCompleted ? 0.5 : 1,
             }}
           >
+            {/* Toggle */}
             <button
               onClick={() => toggle(t.id)}
               className={`px-4 py-2 rounded-lg text-white ${
@@ -109,36 +115,40 @@ export default function home() {
               <FaCheck />
             </button>
 
+            {/* Title / Edit */}
             {editId === t.id ? (
               <form
                 onSubmit={saveedt}
-                className="flex items-center gap-2 grow mx-4"
+                className="flex flex-col sm:flex-row items-center gap-2 w-full sm:w-auto sm:grow mx-0 sm:mx-4"
               >
                 <input
                   value={editText}
                   onChange={(e) => setEditText(e.target.value)}
-                  className="p-2 bg-gray-700 text-white rounded"
+                  className="w-full p-2 bg-gray-700 text-white rounded"
                 />
-                <button className="bg-yellow-500 px-3 py-1 rounded">
+                <button className="bg-yellow-500 px-3 py-1 rounded w-full sm:w-auto">
                   Save
                 </button>
               </form>
             ) : (
-              <span className="font-bold uppercase grow text-center">
+              <span className="font-bold uppercase text-center w-full sm:grow">
                 {t.title}
               </span>
             )}
 
-            <button onClick={() => startEdit(t)} className="mx-2 text-white">
-              <MdEdit />
-            </button>
+            {/* Actions */}
+            <div className="flex gap-2">
+              <button onClick={() => startEdit(t)} className="text-white">
+                <MdEdit />
+              </button>
 
-            <button
-              onClick={() => deleteTodo(t.id)}
-              className="bg-red-400 px-4 py-2 rounded-lg text-white"
-            >
-              <FaTrash />
-            </button>
+              <button
+                onClick={() => deleteTodo(t.id)}
+                className="bg-red-400 px-4 py-2 rounded-lg text-white"
+              >
+                <FaTrash />
+              </button>
+            </div>
           </div>
         ))}
       </div>
