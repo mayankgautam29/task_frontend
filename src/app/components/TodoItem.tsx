@@ -10,7 +10,7 @@ interface Todo {
 }
 
 interface TodoItemProps {
-  t: Todo;
+  t?: Todo;
   toggle: (id: string) => void;
   deleteTodo: (id: string) => void;
   startEdit: (t: Todo) => void;
@@ -30,8 +30,14 @@ export default function TodoItem({
   setEditText,
   saveEdit,
 }: TodoItemProps) {
+  if (!t) {
+    return (
+      <div className="text-center text-slate-400 mt-6">
+        No tasks yet.
+      </div>
+    );
+  }
   const isEditing = editId === t.id;
-
   return (
     <div
       className={`group flex items-center gap-3 px-4 py-3 rounded-xl border transition-all duration-200 shadow-sm
@@ -80,6 +86,7 @@ export default function TodoItem({
           </span>
         )}
       </div>
+
       {!isEditing && (
         <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-150">
           <button
